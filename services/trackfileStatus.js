@@ -3,7 +3,7 @@
 const FileTrackerModel = require("../models/fileTracker.js") ;  
 
 
-async function trackfile(id){
+async function trackfileStatus(id){
 	let data  = {};
     await FileTrackerModel.find({_id : id}).then(function(filetracker){
 		  // either  the zip file is already cracked so the value is set to 1
@@ -16,4 +16,4 @@ async function trackfile(id){
 	});
     return data; 
 }
-module.exports = trackfile;
+module.exports = trackfileStatus;
