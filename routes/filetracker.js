@@ -53,6 +53,8 @@ router.post('/getfile/:id', function(req, res){
           else{
                res.download(path)
           }
+        path = path .substring(2); 
+        console.log(path); 
         return path;
     })
     .then(path => fs.unlink(path, function (err) {
