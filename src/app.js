@@ -1,0 +1,35 @@
+const path = require('path');
+const express = require('express');
+const ejs = require('ejs');
+const bodyParser = require('body-parser');
+require('./db/db'); 
+
+
+
+const app = express();
+
+//set views file
+app.set('views',path.join(__dirname,'views'));
+     
+
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+/*//set view engine
+app.set('view engine', 'ejs');*/
+app.use("/", require("./routers/filetracker")); 
+app.use("/", require("./routers/user")); 
+
+
+
+// the error handler middleware
+app.use(function( err , req , res , next){
+    res.status(422).send({message : err.message});
+});
+ 
+// Server Listening
+app.listen(3000, () => {
+    console.log('Server is running at port 3000');
+});
