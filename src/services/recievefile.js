@@ -1,20 +1,20 @@
 
 
 const FileTrackerModel = require("../models/fileTracker.js") ; 
-const crack = require("./crack.js") ; 
+ 
 
 
+// creates a filetracker in Mongodb then return the filetracker
 async function recieveFile(file , uploadStatus){
-	let id ; 
-    await FileTrackerModel.create({cracked : 0 , filename : file.key}).then(function(filetracker){
-        console.log(filetracker);
+	let id , 
+        filetracker; 
+    await FileTrackerModel.create({cracked : 0 , filename : file.key}).then(function(element){
+        //console.log("recieveFile Function : The filetracker created ! " );
         uploadStatus = true;
-        id = filetracker._id;
-        console.log("this is the id of the file in recieveFile " + id);
+        id = element._id;
+        filetracker = element;
     })
-    .then(function(){
-          crack(file , id);
-    });
-    return id; 
+    console.log(filetracker); 
+    return filetracker; 
 }
 module.exports = recieveFile;

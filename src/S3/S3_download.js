@@ -1,6 +1,4 @@
 const s3 = require('./S3_config.js');
-const multer = require('multer');
-var multerS3 = require('multer-s3');
 const fs = require("fs"); 
 var path = require("path"); 
 
@@ -12,7 +10,6 @@ function checkPath(filename){
       nameinvalid = true,
       count = 0, 
       validname = parts[0];   
-  console.log("filename  : "  + parts[0] + "  extension : " + parts[1] );
   while(nameinvalid){
     if(count === 0 ){
          if(fs.existsSync('./downloads/'+validname + '.'+ parts[1])){

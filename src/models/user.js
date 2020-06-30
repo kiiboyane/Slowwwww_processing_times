@@ -2,8 +2,9 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const Schema = mongoose.Schema ; 
 
-const userSchema = mongoose.Schema({
+const userSchema = Schema({
     firstname: {
         type: String,
         required: true,
@@ -34,7 +35,7 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
-    tokens: [{
+    tokens: [{ 
         token: {
             type: String,
             required: true

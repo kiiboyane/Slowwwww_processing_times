@@ -1,19 +1,8 @@
 const express = require('express');
-const router = express.Router(); 
-const upload = require("../S3/S3_upload.js") ; 
-const download = require("../S3/S3_download.js") ; 
-const recieveFile = require("../services/recievefile.js") ;
-const trackfileStatus = require("../services/trackfileStatus.js") ;
-const trackfileS3Key = require("../services/trackfileS3Key.js") ;
+const router = express.Router();
 const auth = require("../middleware/auth");
-const crack = require("../services/crack.js") ;
 const fs = require('fs');
 
-
-process.on('uncaughtException', function (err) {
-  console.log("Uncaught Exception:", err);
-  process.exit(1);  // This is VITAL. Don't swallow the err and try to continue.
-});
 //route for single file upload
 router.post("/singleFile", auth, upload.single('singleFile') , async(req, res) => {
     const file = req.file;
@@ -21,14 +10,13 @@ router.post("/singleFile", auth, upload.single('singleFile') , async(req, res) =
     if (!file) {
         return res.end("Please choose file to upload!");
     }
-    recieveFile(req.file, req.app.locals.uploadStatus).then((filetracker) => {
-          console.log("ready to send the filetracker to FE  !");  
+    recieveFile(req.file, req.app.locals.uploadStatus).then((id) => {
+          console.log("test service " +id);  
           res.send({
-               filetracker : filetracker,
+               id : id, 
                message : "the file has been upload successfully ! "
           });
-          return filetracker;
-    }).then(filetracker => crack(filetracker));   
+    });    
 });
 
 // Base index route
