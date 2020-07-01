@@ -23,7 +23,7 @@ Though the cracking part of the file is not implemented, the logic of recieving 
 ![alt text](https://github.com/kiiboyane/Slowwwww_processing_times/blob/master/upload_file.png)
 
 # Routers - Requests  :
-The EC2 IP address is 18.212.146.244
+
 You will need to create a user before testing the requests.
 * src/routers/user.js has all the requests for the user creation and login. 
 * To test using a profile, make sure you include the token sent back with the login response, whithin the header : 
