@@ -1,18 +1,3 @@
-
-
-const FileTrackerModel = require("../models/fileTracker.js") ;  
-
-
-async function trackfileS3Key(id){
-
-	return await FileTrackerModel.find({_id : id}).then(function(filetracker){
-       console.log(filetracker);
-       if(filetracker[0].filename === undefined) {
-             throw new Error("File not found !! "); // this should never happen but just in case
-       }     
-        console.log("sending the filename");  
-        return filetracker[0].filename ; 
-
-     })
-}
-module.exports = trackfileS3Key;
+version https://git-lfs.github.com/spec/v1
+oid sha256:e0e90bdbe0a1d6fe4b0bd8e478b10552b4b3dd74a058ae131b2173abf9e30164
+size 525

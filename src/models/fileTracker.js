@@ -1,22 +1,3 @@
-const mongoose = require("mongoose"); 
-const Schema = mongoose.Schema ; 
-
- 
-const FileTrackerSchema = new Schema({
-	password : String, 
-	cracked : {
-	   type: Number, 
-	   min: 0, 
-	   max: 2
-	},
-	filename: {
-        type: String,
-        required: true,
-        trim: true
-    }
-}) ; 
-
-
-const  FileTracker = mongoose.model('fileTracker' , FileTrackerSchema);
-
-module.exports = FileTracker  ; 
+version https://git-lfs.github.com/spec/v1
+oid sha256:80021096148b217958d20cb93ff7d71d65eb85c17845306896b2de0fc2594dd5
+size 414

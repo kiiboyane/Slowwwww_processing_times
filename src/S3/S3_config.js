@@ -1,10 +1,3 @@
-const AWS = require('aws-sdk');
-
-require('dotenv').config();
-
-const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-});
-
-module.exports = s3; 
+version https://git-lfs.github.com/spec/v1
+oid sha256:245ebd92ffc59da228d232b4710a914241f1701459c4f125fd4edeb5a388ee85
+size 217

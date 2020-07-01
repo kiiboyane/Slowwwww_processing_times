@@ -8,10 +8,6 @@ require('./db/db');
 
 const app = express();
 
-//set views file
-app.set('views',path.join(__dirname,'views'));
-     
-
 
 
 app.use(bodyParser.json());
@@ -22,7 +18,15 @@ app.set('view engine', 'ejs');*/
 app.use("/", require("./routers/filetracker")); 
 app.use("/", require("./routers/user")); 
 
+/*app.use(function(req, res, next){
+  res.status(404);
 
+  // respond with json
+  if (req.accepts('json')) {
+    res.send({ error: 'Not found' });
+    return;
+  };
+});*/
 
 // the error handler middleware
 app.use(function( err , req , res , next){
