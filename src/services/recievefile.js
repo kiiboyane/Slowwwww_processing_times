@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:22a231087d37746c36a5b1148ef03b2bb6042b2606fdcf7816ecdafdb8293886
-size 509
+
+
+const FileTrackerModel = require("../models/fileTracker.js") ; 
+ 
+
+
+// creates a filetracker in Mongodb then return the filetracker
+async function recieveFile(file , uploadStatus){
+	let id , 
+        filetracker; 
+    await FileTrackerModel.create({cracked : 0 , filename : file.key}).then(function(element){
+        uploadStatus = true;
+        id = element._id;
+        filetracker = element;
+    })
+    console.log(filetracker); 
+    return filetracker; 
+}
+module.exports = recieveFile;

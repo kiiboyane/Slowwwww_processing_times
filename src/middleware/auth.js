@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:62d22bbbd2eb9f0d9057d06d244077a97e548e2d80c263bee3490b0b51120a63
-size 815
+const jwt = require('jsonwebtoken')
+const User = require('../models/User')
+
+const auth = async(req, res, next) => {
+    //Authorization: Bearer <token> 
+    try {
+       const token = req.header('Authorization').replace('Bearer ', '') // Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWZjNGFiNWYyYzIxMmEwMDhmYzhiNmYiLCJpYXQiOjE1OTM1OTQ4MTl9.ZgTRl60f7MbHfZdeYkmxaTYHBEwfEvtf6WiYuxutPSM
+       const data = jwt.verify(token, process.env.JWT_KEY)
+       const user = await User.findOne({ _id: data._id, 'tokens.token': token })
+        if (!user) {
+            throw new Error()
+        }
+        req.user = user
+        req.token = token
+        next()
+    } catch (error) {
+        res.status(401).send({ error: 'Not authorized to access this resource' })
+    }
+
+}
+module.exports = auth

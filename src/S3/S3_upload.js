@@ -1,3 +1,20 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:11a406a21cd93d6924aad300dcc1e3fa00d6c852b0fe3189dde7d18569ba1b12
-size 514
+const s3 = require('./S3_config.js');
+const multer = require('multer');
+var multerS3 = require('multer-s3');
+
+
+var upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: 'smart-flows-test',
+    metadata: function (req, file, cb) {
+      console.log(" S3 multer config " + file.fieldname);
+      cb(null, {fieldName: file.fieldname});
+    },
+    key: function (req, file, cb) {
+      cb(null, file.fieldname + '-' +Date.now().toString()+'.zip');
+    }
+  })
+});
+
+module.exports = upload; 

@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a20e0a36eafe9faf47ce3a37f19e1cffeb8b7a38e98081237a74760aebf6e8b2
-size 680
+	
+
+const FileTrackerModel = require("../models/fileTracker.js") ;  
+
+
+async function trackfileStatus(id){
+	let data  = {};
+    await FileTrackerModel.find({_id : id}).then(function(filetracker){
+		  // either  the zip file is already cracked so the value is set to 1
+		  if(filetracker[0].cracked === 1 ){
+                   data.message = "The file has been cracked ! ";
+                   data.password = filetracker[0].password;
+		  }else{// the file is still not cracked yet ( ongoing or waiting ) 
+		  	    data.message = "The file is not ready yet! Please wait for the operation to finish"; 
+		  }
+	});
+    return data; 
+}
+module.exports = trackfileStatus;
