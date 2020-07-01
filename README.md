@@ -19,6 +19,6 @@ The API on the other hand is hosted on an EC2 instance.
 
 # The upload process along with the cracking logic :
 
-![alt text](https://github.com/kiiboyane/Slowwwww_processing_times/blob/master/upload_file%20(1).png)
+![alt text](https://github.com/kiiboyane/Slowwwww_processing_times/blob/master/upload_file.png)
 
 
