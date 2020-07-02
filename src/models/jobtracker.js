@@ -101,6 +101,19 @@ JobtrackerSchema.statics.updateLimit = async function(newlimit) {
     return jobTracker[0]; 
 }
 
+// this is one should be accessed by only the admin 
+JobtrackerSchema.statics.getJobTracker = async function() {
+        const jobTracker = await Jobtracker.find({})
+        if (jobTracker.length<1 ) {
+            jobTracker = [{
+              current : 0 , 
+              queue : [],
+              limit : 5
+            }]; 
+        }
+    return jobTracker[0]; 
+}
+
 
 
 const Jobtracker = mongoose.model('Jobtracker', JobtrackerSchema)
