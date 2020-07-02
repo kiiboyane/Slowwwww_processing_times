@@ -12,13 +12,13 @@ function checkPath(filename){
       validname = parts[0];   
   while(nameinvalid){
     if(count === 0 ){
-         if(fs.existsSync('./downloads/'+validname + '.'+ parts[1])){
+         if(fs.existsSync('./src/public/'+validname + '.'+ parts[1])){
                count++;
          }else{
             nameinvalid = false;
          }
     }else{
-        if(fs.existsSync('./downloads/'+validname +'(' + count + ').'+parts[1])){
+        if(fs.existsSync('./src/public/'+validname +'(' + count + ').'+parts[1])){
                count++;
          }else{
             nameinvalid = false;
@@ -39,8 +39,8 @@ function download (filename){
   var validname  = checkPath(filename);
   var file = require('fs').createWriteStream('./src/public/'+validname);
   console.log("downloading the file ");
-  var s3File = s3.getObject(params).createReadStream().pipe(file); 
+  var s3File = s3.getObject(params).createReadStream();//.pipe(file); 
   console.log(validname);
-  return path.join('./src/public/' +validname) ;
+  return [s3File ,path.join('./src/public/' +validname)] ;
 }
 module.exports = download; 

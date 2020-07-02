@@ -54,14 +54,20 @@ router.get('/getfile/:id', auth, async(req, res) =>{
     .then((key) => download(key))
     .catch(e => "File not found !! "
     )
-    .then(function(path){
-          if(path ===  "File not found !! ") 
-                res.send({message : path}); 
+    .then(function(data){
+          if(data ===  "File not found !! ") 
+                res.send({message : data}); 
           else{
                console.log(" got the path") ;
-               res.download(path)
+               //res.download(path)
+               //set the archive name
+               console.log(data);
+              res.attachment(data[1]);
+
+       //this is the streaming magic
+        data[0].pipe(res);
           }
-        console.log(path); 
+     //   console.log(path); 
         return path;
     });
 
