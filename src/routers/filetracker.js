@@ -68,7 +68,7 @@ router.get('/getfile/:id', auth, async(req, res) =>{
         data[0].pipe(res);
           }
      //   console.log(path); 
-        return path;
+        return data;
     });
 
 });
