@@ -36,11 +36,9 @@ function download (filename){
   if(typeof filename !== 'string' || filename == "File not found !! ")
         throw new Error("File not found !! ");
   var params = {Bucket: 'smart-flows-test', Key: filename};
-  var validname  = checkPath(filename);
-  var file = require('fs').createWriteStream('./src/public/'+validname);
   console.log("downloading the file ");
   var s3File = s3.getObject(params).createReadStream();//.pipe(file); 
-  console.log(validname);
-  return [s3File ,path.join('./src/public/' +validname)] ;
+  console.log(filename);
+  return [s3File ,path.join('./src/public/' +filename)] ;
 }
 module.exports = download; 
