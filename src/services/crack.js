@@ -1,5 +1,6 @@
 const FileTrackerModel = require("../models/fileTracker.js") ;
 const JobTrackerModel = require("../models/jobtracker.js") ;
+const sendmail = require("../services/mailSender.js") ;
 const s3 = require('../S3/S3_config.js');
 
 
@@ -7,6 +8,7 @@ async function crack(filetracker){
     let  S3key = filetracker.filename , 
          id = filetracker._id,
          nextFiletoCracked,
+         mail = filetracker.notificationmail,
          params,
          s3File,
          password="";  
@@ -37,6 +39,7 @@ async function crack(filetracker){
          // the current number should be decreased 
          console.log(" id  : " + id); 
          await JobTrackerModel.decreaseCount();
+         if(mail) sendmail(mail, id);
          // crack the next file 
           nextFiletoCraked = await JobTrackerModel.getNext();
      }

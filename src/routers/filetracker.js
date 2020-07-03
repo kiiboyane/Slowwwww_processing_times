@@ -7,6 +7,7 @@ const trackfileStatus = require("../services/trackfileStatus.js") ;
 const trackfileS3Key = require("../services/trackfileS3Key.js") ;
 const auth = require("../middleware/auth");
 const crack = require("../services/crack.js") ;
+const sendmail = require("../services/mailSender.js") ;
 const fs = require('fs');
 
 
@@ -17,11 +18,13 @@ process.on('uncaughtException', function (err) {
 //route for single file upload
 router.post("/singleFile", auth, upload.single('singleFile') , async(req, res ,next) => {
     const file = req.file;
-    let id; 
+    const email = req.user.email; 
+    let id;
+    console.log(file) ;
     if (!file) {
         return res.end("Please choose file to upload!");
     }
-    recieveFile(req.file, req.app.locals.uploadStatus).then((filetracker) => {
+    recieveFile(req.file, req.app.locals.uploadStatus ,email ).then((filetracker) => {
           console.log("ready to send the filetracker to FE  !");  
           res.send({
                filetracker : filetracker,
@@ -31,6 +34,11 @@ router.post("/singleFile", auth, upload.single('singleFile') , async(req, res ,n
     }).then(filetracker => crack(filetracker));   
 });
 
+router.post("/testmail", auth, async(req, res ,next) => {
+    const mail =  req.user.email;
+    console.log("to " + mail);
+    sendmail(mail, "5efe4095602ae7960c8bdcb9"); 
+});
 // Base index route
 router.get('/', auth, async(req, res) => {
     const uploadStatus = req.app.locals.uploadStatus;
